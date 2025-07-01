@@ -12,7 +12,7 @@ export const getProducts = async (req, res) => {
     } catch (error) {
         console.error(`Error In Fetching Product: ${error.message}`)
         res.status(500).json({
-            success: "false",
+            success: false,
             message: "Internal Server Error"
         })
     }
@@ -55,7 +55,7 @@ export const updateProduct = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
 
-        return res.status(400).jsonp({
+        return res.status(404).json({
             success: false,
             message: "Invalid Product Id"
         })
@@ -63,6 +63,14 @@ export const updateProduct = async (req, res) => {
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(id, product, { new: true })
+
+        if (!updatedProduct) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
         res.status(200).json({
             success: true,
             data: updatedProduct
@@ -71,7 +79,7 @@ export const updateProduct = async (req, res) => {
     catch (error) {
         console.error(`Error In Updating Product: ${error.message}`)
         res.status(500).json({
-            success: "false",
+            success: false,
             message: "Internal Server Error"
         })
     }
@@ -80,18 +88,36 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     const { id } = req.params
-    // console.log(`id:${id}`)
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+
+        return res.status(404).json({
+            success: false,
+            message: "Invalid Product Id"
+        })
+    }
+
+
+
+
     try {
-        await Product.findByIdAndDelete(id);
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Product Deleted"
         })
     } catch (error) {
         console.error(`Error In Deleting Product: ${error.message}`)
-        res.status(404).json({
-            success: "false",
-            message: "Product Not found"
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
         })
     }
 }

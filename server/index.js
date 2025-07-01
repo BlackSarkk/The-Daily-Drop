@@ -11,7 +11,7 @@ app.use("/api/products", productRoutes)
 
 
 
-const PORT = process.env.PORT || 5005;
+const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => {
     connectDB()
     console.log(`Server started at http://localhost:${PORT}`)
