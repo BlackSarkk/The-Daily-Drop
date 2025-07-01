@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, { timestamp: true })  // this is make sure to keep a createdAT and updatedAt dates
+}, { timestamps: true })  // this is make sure to keep a createdAT and updatedAt dates
 
 const Product = mongoose.model('Product', productSchema);
 
