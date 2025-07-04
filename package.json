@@ -1,0 +1,23 @@
+{
+  "name": "the-daily-drop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackSarkk/The-Daily-Drop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlackSarkk/The-Daily-Drop/issues"
+  },
+  "homepage": "https://github.com/BlackSarkk/The-Daily-Drop#readme",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
